@@ -19,6 +19,10 @@ const Product = () => {
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
+    analytics.track('Added to Cart', {
+      description: 'User added product to cart'
+    });
+    
     dispatch(addCart(product));
   };
 
