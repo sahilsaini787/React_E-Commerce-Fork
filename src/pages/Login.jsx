@@ -4,7 +4,10 @@ import { Footer, Navbar } from "../components";
 import { useEffect,useState } from "react";
 import analytics from "../lib/segment";
 import { supabase } from "./supabase";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
+  const navigate=useNavigate();
   const [formData, setFormData] = useState({
           email: "",
           password: "",
@@ -27,10 +30,13 @@ const Login = () => {
           
           if(formData.password===data.password)
           {
+            alert('user logged in succesfully!');
+            
              analytics.identify(data.id,{
               name:data.name,
               email:data.email
              })
+           navigate('/');  
           }
         }
   useEffect(() => {
