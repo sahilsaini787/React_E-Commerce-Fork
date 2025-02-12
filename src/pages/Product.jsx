@@ -18,7 +18,24 @@ const Product = () => {
 
   const dispatch = useDispatch();
 
+  const openProduct=()=>{
+    analytics.track('Product Clicked', {
+      product_id: '507f1f77bcf86cd799439011',
+      category: 'Games',
+      name: 'Monopoly: 3rd Edition',
+      brand: 'Hasbro',
+      variant: '200 pieces',
+      price: 18.99,
+      quantity: 1,
+      coupon: 'MAYDEALS',
+      position: 3,
+      url: 'https://www.example.com/product/path',
+      image_url: 'https://www.example.com/product/path.jpg'
+    });
+  }
+
   const addProduct = (product) => {
+    
     dispatch(addCart(product));
   };
 
@@ -156,12 +173,14 @@ const Product = () => {
                     <Link
                       to={"/product/" + item.id}
                       className="btn btn-dark m-1"
+                      onClick={openProduct}
                     >
                       Buy Now
                     </Link>
                     <button
                       className="btn btn-dark m-1"
                       onClick={() => addProduct(item)}
+
                     >
                       Add to Cart
                     </button>
