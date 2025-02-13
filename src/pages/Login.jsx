@@ -22,22 +22,29 @@ const Login = () => {
       
         const handleSubmit=async(e)=>{
           e.preventDefault();
-          const { data} = await supabase
+          const { data,error} = await supabase
           .from("users") // Replace "users" with your actual table name
           .select("*")
           .eq("email", formData.email)
           .single(); 
-          
-          if(formData.password===data.password)
+
+          if(error)
           {
-            alert('user logged in succesfully!');
-            
-             analytics.identify(data.id,{
-              name:data.name,
-              email:data.email
-             })
-           navigate('/');  
+            alert('user not found!')
           }
+          else{
+            if(formData.password===data.password)
+              {
+                alert('user logged in succesfully!');
+                
+                 analytics.identify(data.id,{
+                  name:data.name,
+                  email:data.email
+                 })
+               navigate('/');  
+              }
+          }
+          
         }
   useEffect(() => {
     analytics.page(); // Track page views on load
